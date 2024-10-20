@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Route</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+        #controls {
+            display: flex;
+            justify-content: center;
+            margin: 10px;
+        }
+        #controls button {
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Find the Optimal Route</h1>
+    <div id="map"></div>
+    <div id="controls">
+        <button id="findRoute" disabled>Find Route</button>
+        <button id="resetMap">Reset</button>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

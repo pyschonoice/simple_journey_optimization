@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#map {
+    height: 500px;
+    width: 100%;
+}
+
+#controls {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+#controls input {
+    margin: 0 5px;
+    padding: 5px;
+}
+
+#controls button {
+    padding: 5px 10px;
+}
