@@ -4,36 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journey Optimization</title>
-    <style>
-        body {
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        .main-btn {
-            background-color: #4CAF50; /* Green */
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 20px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <br/><br/>
-    <h1>Journey Optimization</h1>
-    <p>Click the button below to go to the map and find the optimal route between two points.</p>
+    <div class="main-container">
+        <!-- Updated Header -->
+        <h1>Journey Optimization</h1>
+        <p class="description">Click the button below to go to the map and find the optimal route between two points.</p>
 
-    <br/><br/>
-    <img src="static\header-image.jpg">
-    <br/>
-    
-    <a href="/find_route_page">
-        <button class="main-btn">Find Route</button>
-    </a>
+        <!-- Image -->
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='images/header-image.jpg') }}" alt="Map Image" class="map-image">
+        </div>
+
+        <!-- Button -->
+        <div class="button-container">
+            <a href="/find_route_page" class="btn">Find Route</a>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,12 +1,25 @@
-
+var bounds = [[30.657, 76.654], [30.812, 76.850]];  // South-West and North-East corners of the city
 
 // Initialize the map and set default view to Chandigarh, India
-var map = L.map('map').setView([30.7333, 76.7794], 13);
+var map = L.map('map', {
+    maxBounds: bounds,  // Limit the map panning to Chandigarh area
+    maxZoom: 16,  // Max zoom level
+    minZoom: 12,  // Min zoom level
+    zoomSnap: 0.5  // Allows half-zoom increments for smoother zooming
+}).setView([30.7333, 76.7794], 13);  // Chandigarh center, zoom level 13
 
 // Add OpenStreetMap tiles
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
+
+// // Initialize the map and set default view to Chandigarh, India
+// var map = L.map('map').setView([30.7333, 76.7794], 13);
+
+// // Add OpenStreetMap tiles
+// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     attribution: '&copy; OpenStreetMap contributors'
+// }).addTo(map);
 
 // Variables to store the markers and coordinates
 var startMarker, endMarker, routeLayer;

@@ -1,35 +1,26 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Route</title>
+    <title>Find the Optimal Route</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-
-    <style>
-        #map {
-            height: 600px;
-            width: 100%;
-        }
-        #controls {
-            display: flex;
-            justify-content: center;
-            margin: 10px;
-        }
-        #controls button {
-            padding: 10px 20px;
-        }
-    </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Find the Optimal Route</h1>
-    <div id="map"></div>
-    <div id="controls">
-        <button id="findRoute" disabled>Find Route</button>
-        <button id="resetMap">Reset</button>
+    <div class="container">
+        <!-- Updated Header -->
+        <h1>Find Your Optimal Route</h1>
+        <div id="map"></div>
+        <div id="controls">
+            <!-- Elegant buttons with bigger size -->
+            <button id="findRoute" class="btn btn-success" disabled>Find Route</button>
+            <button id="resetMap" class="btn btn-danger">Reset</button>
+        </div>
     </div>
 
+    <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>

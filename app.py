@@ -10,7 +10,7 @@ try:
     graph = ox.load_graphml('chandigarh_map.graphml')
 except FileNotFoundError:
     print("Downloading map for Chandigarh, India...")
-    graph = ox.graph_from_place('Chandigarh, India', network_type='drive')
+    graph = ox.graph_from_place('Chandigarh, India', network_type='drive',simplify=False)
     ox.save_graphml(graph, filepath='chandigarh_map.graphml')
 
 @app.route('/')
@@ -46,31 +46,44 @@ def find_route():
     start_coords = data.get('start')  # [lat, lon]
     end_coords = data.get('end')      # [lat, lon]
 
-    print(f"Start Coordinates: {start_coords}, End Coordinates: {end_coords}")  # Debugging
-
     if not start_coords or not end_coords:
         return jsonify({'error': 'Please provide both start and end coordinates.'}), 400
 
-    try:
-        start_node = ox.nearest_nodes(graph, start_coords[1], start_coords[0])  # lon, lat
-        end_node = ox.nearest_nodes(graph, end_coords[1], end_coords[0])        # lon, lat
-        print(f"Start Node: {start_node}, End Node: {end_node}")  # Debugging
-    except ValueError:
-        return jsonify({'error': 'Could not find a path between the given coordinates.'}), 400
+    # Find the nearest nodes in the graph to these coordinates
+    start_node = ox.nearest_nodes(graph, start_coords[1], start_coords[0])  # lon, lat
+    end_node = ox.nearest_nodes(graph, end_coords[1], end_coords[0])        # lon, lat
 
     try:
-        # Use the A* algorithm with the custom heuristic
+        # A* algorithm to find the path
         path = nx.astar_path(graph, start_node, end_node, heuristic=heuristic)
-        route_coords = [(graph.nodes[node]['y'], graph.nodes[node]['x']) for node in path]
 
-        print(f"Route Coordinates: {route_coords}")  # Debugging
+        # Extract the geometry or fallback to straight lines between nodes
+        route_coords = []
+        for u, v in zip(path[:-1], path[1:]):
+            # Get the edge data between node u and v
+            edge_data = graph.get_edge_data(u, v)
 
+            # Ensure 'geometry' exists and coordinates are used in the correct (lat, lon) format
+            for edge_key in edge_data:
+                edge = edge_data[edge_key]
+                if 'geometry' in edge:
+                    # Correctly append geometry coordinates in (lat, lon) order
+                    route_coords.extend([(lat, lon) for lon, lat in edge['geometry'].coords])
+                else:
+                    # Fallback to straight line, but ensure correct lat, lon order
+                    route_coords.append((graph.nodes[u]['y'], graph.nodes[u]['x']))  # (lat, lon)
+                    route_coords.append((graph.nodes[v]['y'], graph.nodes[v]['x']))  # (lat, lon)
+        print(f"Route Coordinates: {route_coords}")
+
+        # Return the route coordinates to the frontend
         return jsonify({
             'path': route_coords,
             'length': nx.astar_path_length(graph, start_node, end_node, heuristic=heuristic)
         })
     except nx.NetworkXNoPath:
         return jsonify({'error': 'No path found between the specified points.'}), 400
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
