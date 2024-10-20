@@ -36,15 +36,17 @@ Before you begin, ensure you have the following installed:
    ```bash
    git clone https://github.com/yourusername/journey-optimization.git
    cd journey-optimization
-2.** Install dependencies:** Install the required Python packages using the requirements.txt file:
-  ```bash
-  pip install -r requirements.txt
-  ```
-3.**Run the Flask app:** Start the Flask server to run the web application:
-```bash
-python app.py
-```
-4.**View the app in your browser:** Open your browser and enjoy.
+2. **Install dependencies:** Install the required Python packages using the requirements.txt file:
+   
+     ```bash
+     pip install -r requirements.txt
+     ```
+3. **Run the Flask app:** Start the Flask server to run the web application:
+   
+   ```bash
+   python app.py
+   ```
+4. **View the app in your browser:** Open your browser and enjoy.
 
 # 🚀 How to Use
 Start the app: Open the app in your browser after running the server.
